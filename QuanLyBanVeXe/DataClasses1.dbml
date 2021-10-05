@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="QuanLyBanVeXe" Class="DataClasses1DataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=LAPTOP-9OD6A560\SQLEXPRESS;Initial Catalog=QuanLyBanVeXe;Integrated Security=True" SettingsObjectName="QuanLyBanVeXe.Properties.Settings" SettingsPropertyName="QuanLyBanVeXeConnectionString1" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.BanVe" Member="BanVes">
+    <Type Name="BanVe">
+      <Column Name="IdVe" Type="System.String" DbType="VarChar(30) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="IdChuyen" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
+      <Column Name="TenHanhKhach" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
+      <Column Name="SDTHanhKhach" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="SoLuongMua" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="GiaVe" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ThanhTien" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="ChuyenXe_BanVe" Member="ChuyenXe" ThisKey="IdChuyen" OtherKey="IdChuyen" Type="ChuyenXe" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ChiTietTuyen" Member="ChiTietTuyens">
+    <Type Name="ChiTietTuyen">
+      <Column Name="IdTuyen" Type="System.String" DbType="VarChar(30) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="IdThoiDiem" Type="System.String" DbType="VarChar(30) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Association Name="ThoiDiem_ChiTietTuyen" Member="ThoiDiem" ThisKey="IdThoiDiem" OtherKey="IdThoiDiem" Type="ThoiDiem" IsForeignKey="true" />
+      <Association Name="TuyenXe_ChiTietTuyen" Member="TuyenXe" ThisKey="IdTuyen" OtherKey="IdTuyen" Type="TuyenXe" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ChuyenXe" Member="ChuyenXes">
+    <Type Name="ChuyenXe">
+      <Column Name="IdChuyen" Type="System.String" DbType="VarChar(30) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="IdTuyen" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
+      <Column Name="NgayDi" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="Gio" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="So_Xe" Type="System.String" DbType="VarChar(8)" CanBeNull="true" />
+      <Association Name="ChuyenXe_BanVe" Member="BanVes" ThisKey="IdChuyen" OtherKey="IdChuyen" Type="BanVe" />
+      <Association Name="TuyenXe_ChuyenXe" Member="TuyenXe" ThisKey="IdTuyen" OtherKey="IdTuyen" Type="TuyenXe" IsForeignKey="true" />
+      <Association Name="Xe_ChuyenXe" Member="Xe" ThisKey="So_Xe" OtherKey="So_Xe" Type="Xe" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.LoaiNguoiDung" Member="LoaiNguoiDungs">
+    <Type Name="LoaiNguoiDung">
+      <Column Name="IdLoaiND" Type="System.String" DbType="VarChar(30) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="TenLoaiND" Type="System.String" DbType="NVarChar(30) NOT NULL" CanBeNull="false" />
+      <Association Name="LoaiNguoiDung_NguoiDung" Member="NguoiDungs" ThisKey="IdLoaiND" OtherKey="IdLoaiND" Type="NguoiDung" />
+    </Type>
+  </Table>
+  <Table Name="dbo.NguoiDung" Member="NguoiDungs">
+    <Type Name="NguoiDung">
+      <Column Name="IdNguoiDung" Type="System.String" DbType="VarChar(30) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="PassND" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
+      <Column Name="HoTen" Type="System.String" DbType="NVarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="NgaySinh" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="GioiTinh" Type="System.String" DbType="NVarChar(3) NOT NULL" CanBeNull="false" />
+      <Column Name="DiaChi" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="SoDT" Type="System.String" DbType="VarChar(15)" CanBeNull="true" />
+      <Column Name="IdLoaiND" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Association Name="LoaiNguoiDung_NguoiDung" Member="LoaiNguoiDung" ThisKey="IdLoaiND" OtherKey="IdLoaiND" Type="LoaiNguoiDung" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ThoiDiem" Member="ThoiDiems">
+    <Type Name="ThoiDiem">
+      <Column Name="IdThoiDiem" Type="System.String" DbType="VarChar(30) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Ngay" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="Gio" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Association Name="ThoiDiem_ChiTietTuyen" Member="ChiTietTuyens" ThisKey="IdThoiDiem" OtherKey="IdThoiDiem" Type="ChiTietTuyen" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TuyenXe" Member="TuyenXes">
+    <Type Name="TuyenXe">
+      <Column Name="IdTuyen" Type="System.String" DbType="VarChar(30) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="TenTuyen" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
+      <Column Name="DiaDiemDi" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
+      <Column Name="DiaDiemDen" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
+      <Association Name="TuyenXe_ChiTietTuyen" Member="ChiTietTuyens" ThisKey="IdTuyen" OtherKey="IdTuyen" Type="ChiTietTuyen" />
+      <Association Name="TuyenXe_ChuyenXe" Member="ChuyenXes" ThisKey="IdTuyen" OtherKey="IdTuyen" Type="ChuyenXe" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Xe" Member="Xes">
+    <Type Name="Xe">
+      <Column Name="So_Xe" Type="System.String" DbType="VarChar(8) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Hieu_Xe" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Doi_Xe" Type="System.String" DbType="VarChar(4)" CanBeNull="true" />
+      <Column Name="So_Cho_Ngoi" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Xe_ChuyenXe" Member="ChuyenXes" ThisKey="So_Xe" OtherKey="So_Xe" Type="ChuyenXe" />
+    </Type>
+  </Table>
+</Database>
